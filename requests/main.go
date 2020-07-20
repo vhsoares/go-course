@@ -9,14 +9,18 @@ import (
 	"github.com/fatih/color"
 )
 
-// ao iniciar uma array constante é necessário utilizar a sintaxe correta, sendo
-// const ~nome da constante~ = [~tamanho do array~]~tipo do array~{~ valores do array~}
-const sites = [2]string{"http://github.com/vhsoares", "http://github.com/rkarwinski"}
+// ao iniciar uma array variavel é necessário utilizar a sintaxe correta, sendo
+// var ~nome da constante~ = [~tamanho do array~]~tipo do array~{~ valores do array~}
+// Slices são abstrações de arrays, onde não é necessário dizer os indices e os limites
+var sites = []string{"http://github.com/vhsoares", "http://github.com/rkarwinski"}
+
+// slices são abstrações de arrays não sendo necessário definir o tamanho final
+// em Go os arrays tem tipo
+var sliceNomedeSites = []string{"github", "laravel"}
 
 func main() {
 
 	intro()
-
 	command := readCmd()
 
 	resolveCommand(command)
@@ -38,6 +42,11 @@ func resolveCommand(command int) {
 	switch command {
 	case 1:
 		// o _ ( underline ) pode ser utilizado pra demostrar o desinteresse em uma das variáveis, assim não é necessário que eu trabalhe com a variável que eu não quero trabalhar
+
+		// a função append adicona os valores no slice
+		sites = append(sites, "http://github.com/leonardomacha")
+		fmt.Println("Existem ", len(sites), " sendo testados. Podemos testar até ", cap(sites), " sites.")
+		// loop infinito
 		for {
 			monitor(sites)
 		}
@@ -52,12 +61,13 @@ func resolveCommand(command int) {
 	}
 }
 
-func monitor(webpages []string) (*http.Response, error) {
-	// para saber o tamanho de um array use o len
-	for i :=0 < webpages.len {
-		testAvailability(webpages[i])
-		i++
+func monitor(webpages []string) {
+	// foreach ou for range
+	// o _ sempre pode ser usado quando não se tem interesse no valor de retorno de qualquer coisa.
+	for _, value := range webpages {
+		testAvailability(value)
 	}
+
 }
 
 func testAvailability(site string) (*http.Response, error) {
