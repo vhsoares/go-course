@@ -34,7 +34,9 @@ func resolveCommand(command int) {
 	switch command {
 	case 1:
 		// o _ ( underline ) pode ser utilizado pra demostrar o desinteresse em uma das variáveis, assim não é necessário que eu trabalhe com a variável que eu não quero trabalhar
-		monitor("http://github.com/vhsoares")
+		for {
+			monitor("http://github.com/vhsoares")
+		}
 	case 2:
 		fmt.Println("Mostrando Log")
 	case 3:
