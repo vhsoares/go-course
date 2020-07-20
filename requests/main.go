@@ -9,6 +9,10 @@ import (
 	"github.com/fatih/color"
 )
 
+// ao iniciar uma array constante é necessário utilizar a sintaxe correta, sendo
+// const ~nome da constante~ = [~tamanho do array~]~tipo do array~{~ valores do array~}
+const sites = [2]string{"http://github.com/vhsoares", "http://github.com/rkarwinski"}
+
 func main() {
 
 	intro()
@@ -35,7 +39,7 @@ func resolveCommand(command int) {
 	case 1:
 		// o _ ( underline ) pode ser utilizado pra demostrar o desinteresse em uma das variáveis, assim não é necessário que eu trabalhe com a variável que eu não quero trabalhar
 		for {
-			monitor("http://github.com/vhsoares")
+			monitor(sites)
 		}
 	case 2:
 		fmt.Println("Mostrando Log")
@@ -48,7 +52,15 @@ func resolveCommand(command int) {
 	}
 }
 
-func monitor(site string) (*http.Response, error) {
+func monitor(webpages []string) (*http.Response, error) {
+	// para saber o tamanho de um array use o len
+	for i :=0 < webpages.len {
+		testAvailability(webpages[i])
+		i++
+	}
+}
+
+func testAvailability(site string) (*http.Response, error) {
 	resp, err := http.Get(site)
 
 	if resp.StatusCode == 200 {
